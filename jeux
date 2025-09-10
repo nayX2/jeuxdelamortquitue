@@ -1,5 +1,6 @@
 
 
+
 import pygame
 import random
 
@@ -14,7 +15,8 @@ screen_height = info.current_h
 #variable du jeux
 listdebris:list = []
 countertour:int = 0
-
+sousmarinx = 0
+sousmariny = 0
 
 
 ############################################################
@@ -53,6 +55,7 @@ dt = 0
 
 
 while running:
+    countertour = countertour + 1
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     
@@ -60,13 +63,14 @@ while running:
      # fill the screen with a color to wipe away anything from last frame
     screen.fill((0,0,0))
     
-    #ajouter des debris      
-    listdebris.append(Debris(random.randint(50,100),random.randint(-500,0),random.randint(-500,info.current_h + 500)))
+    #ajouter des debris
+    if countertour % 100:
+        listdebris.append(Debris(random.randint(50,100),random.randint(-500,0),random.randint(-500,info.current_h + 500)))
        
        
        
     for debris in listdebris:
-        debris.deplacement(-5,1)
+        debris.deplacement(sousmarinx,sousmariny)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -93,6 +97,19 @@ while running:
         xcrew = xcrew - 5
     if not(keys[pygame.K_z]) and screen_height > ycrew + 21:
         ycrew = ycrew + 5
+        
+#deplacement sousmarin
+    if keys[pygame.K_s] and sousmariny < 5:
+        sousmariny = sousmariny + 1
+    if keys[pygame.K_z] and sousmariny > 5:
+        sousmariny = sousmariny - 1
+    if keys[pygame.K_d] and sousmarinx < 5:
+        sousmarinx = sousmarinx + 1
+    if keys[pygame.K_q] and sousmarinx > -5:
+        sousmarinx = sousmarinx - 1
+    
+        
+    
     # flip() the display to put your work on screen
     pygame.display.flip()
 
