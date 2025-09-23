@@ -1,5 +1,4 @@
 
-
 import pygame
 import random
 
@@ -16,7 +15,10 @@ listdebris:list = []
 distance:int = 0
 sousmarinx = 0
 sousmariny = 0
-ldistance = distance
+profondeur = 100
+color = 0
+newcolor = -15000
+actualcolor = (121, 248, 248)
 
 
 ############################################################
@@ -49,24 +51,43 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREE
 
 clock = pygame.time.Clock()
 running = True
-dt = 0
 
+list_color = [(121, 248, 248), (0,204,203), (0, 149, 182), (0, 127, 255), (21, 96, 189), (0, 51, 102), (3, 34, 76), (0, 0, 0)]
+
+
+        
 
 
 while running:
     
     # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
+    # pygame.QUIT event means the user clicked X to close your windowajouter des debris
+    
     
     
      # fill the screen with a color to wipe away anything from last frame
-    screen.fill((0,0,100))
+    profondeur = profondeur - sousmariny
+    if profondeur < newcolor:
+        color = color + 1
+        newcolor = newcolor - 1500
+        actualcolor = list_color[color]
+    elif profondeur > newcolor - 1500 and color > 0:
+        color = color - 1
+        newcolor = newcolor + 1500
+        actualcolor = list_color[color]
     
-    #ajouter des debris
-    print(distance % 100 == 0 and ldistance - distance == 100)
-    if distance % 10 == 0 and ldistance - distance < 100 :
+        
+    
+    screen.fill(actualcolor)
+
+
+       
+    
+    #
+   
+    if distance % 10 == 0  :
         listdebris.append(Debris(random.randint(50,100),random.randint(-500,0),random.randint(-500,info.current_h + 500)))
-        ldistance = distance
+
        
        
     for debris in listdebris:
@@ -100,18 +121,16 @@ while running:
         xcrew = xcrew - 5
     if not(keys[pygame.K_z]) and screen_height > ycrew + 21:
         ycrew = ycrew + 5
-        
-#deplacement sousmarin
-    if keys[pygame.K_s] and sousmariny < 50:
-        sousmariny = sousmariny + 10
-    if keys[pygame.K_z] and sousmariny > -50:
-        sousmariny = sousmariny - 10
-    if keys[pygame.K_d] and sousmarinx < 50:
-        sousmarinx = sousmarinx + 10
-    if keys[pygame.K_q] and sousmarinx > -50:
-        sousmarinx = sousmarinx - 10
     
-        
+    #deplacement sousmarin
+    if keys[pygame.K_s] and sousmariny < 5:
+        sousmariny = sousmariny + 10
+    if keys[pygame.K_z] and sousmariny > -5:
+        sousmariny = sousmariny - 10
+    if keys[pygame.K_d] and sousmarinx < 5:
+        sousmarinx = sousmarinx + 10
+    if keys[pygame.K_q] and sousmarinx > -5:
+        sousmarinx = sousmarinx - 10
     
     # flip() the display to put your work on screen
     pygame.display.flip()
@@ -120,5 +139,7 @@ while running:
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
     dt = clock.tick(60) / 1000
+    pygame.display.flip()
 
+pygame.quit()
 pygame.quit()
