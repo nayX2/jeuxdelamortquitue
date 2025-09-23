@@ -107,7 +107,6 @@ while running:
    
     
 
-    pygame.draw.rect(screen, (100,100,200) , (screen_width - 800 ,screen_height - 400,800,400))
     screen.blit(sous_marin, (screen_width - 800, screen_height - 400))
     pygame.draw.rect(screen, (20,20,20) , (xcrew,ycrew,21,21))
     
