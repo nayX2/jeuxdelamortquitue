@@ -67,7 +67,7 @@ while running:
     folder = pathlib.Path.cwd()
     os.chdir(folder)
     
-    sous_marin = pygame.image.load("sprite/sous_marin.png").convert_alpha()
+    sous_marin = pygame.image.load("sous_marin.png").convert_alpha()
     
      # fill the screen with a color to wipe away anything from last frame
     profondeur = profondeur - sousmariny
