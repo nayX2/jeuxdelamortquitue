@@ -1,0 +1,150 @@
+import pygame
+import random
+import os
+import pathlib
+
+pygame.init()
+
+# Obtenir la taille de l'écran
+info = pygame.display.Info()
+screen_width = info.current_w
+screen_height = info.current_h
+
+
+#variable du jeux
+listdebris:list = []
+distance:int = 0
+sousmarinx = 0
+sousmariny = 0
+profondeur = 100
+color = 0
+newcolor = -15000
+actualcolor = (121, 248, 248)
+
+
+############################################################
+class Debris():
+    def __init__(self, size:int, x:int, y:int):
+        self.size = size
+        self.x = x
+        self.y = y
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+    
+    def deplacement(self, directionx ,directiony):
+        self.x = self.x - directionx
+        self.y = self.y - directiony
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+        
+    
+    def update(self):
+        return((self.x))
+    
+############################################################    
+
+
+xcrew = 1000
+ycrew = 1000
+# Créer une fenêtre en plein écran
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+
+
+
+
+clock = pygame.time.Clock()
+running = True
+
+list_color = [(121, 248, 248), (0,204,203), (0, 149, 182), (0, 127, 255), (21, 96, 189), (0, 51, 102), (3, 34, 76), (0, 0, 0)]
+
+
+        
+
+
+while running:
+    
+    # poll for events
+    # pygame.QUIT event means the user clicked X to close your windowajouter des debris
+    
+    folder = pathlib.Path.cwd()
+    os.chdir(folder)
+    
+    sous_marin = pygame.image.load("sprite/sous_marin.png").convert_alpha()
+    
+     # fill the screen with a color to wipe away anything from last frame
+    profondeur = profondeur - sousmariny
+    if profondeur < newcolor:
+        color = color + 1
+        newcolor = newcolor - 1500
+        actualcolor = list_color[color]
+    elif profondeur > newcolor - 1500 and color > 0:
+        color = color - 1
+        newcolor = newcolor + 1500
+        actualcolor = list_color[color]
+    
+        
+    
+    screen.fill(actualcolor)
+
+
+       
+    
+    #
+   
+    if distance % 10 == 0  :
+        listdebris.append(Debris(random.randint(50,100),random.randint(-500,0),random.randint(-500,info.current_h + 500)))
+
+       
+       
+    for debris in listdebris:
+        debris.deplacement(sousmarinx,sousmariny)
+        #if debris.x < - 1000 or debris.y < - 1000:
+            #listdebris.remove(debris)
+    distance = distance + sousmarinx
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+   
+    
+
+    pygame.draw.rect(screen, (100,100,200) , (screen_width - 800 ,screen_height - 400,800,400))
+    screen.blit(sous_marin, (screen_width - 800, screen_height - 400))
+    pygame.draw.rect(screen, (20,20,20) , (xcrew,ycrew,21,21))
+    
+    
+    
+    
+#deplacemment crew 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_s] and screen_height > ycrew + 21:
+        ycrew = ycrew + 5
+    if keys[pygame.K_z] and screen_height - 400 < ycrew:
+        ycrew = ycrew - 2
+    if keys[pygame.K_d] and screen_width > xcrew + 21:
+        xcrew = xcrew + 5
+    if keys[pygame.K_q] and screen_width - 800 < xcrew :
+        xcrew = xcrew - 5
+    if not(keys[pygame.K_z]) and screen_height > ycrew + 21:
+        ycrew = ycrew + 5
+    
+    #deplacement sousmarin
+    if keys[pygame.K_s] and sousmariny < 5:
+        sousmariny = sousmariny + 10
+    if keys[pygame.K_z] and sousmariny > -5:
+        sousmariny = sousmariny - 10
+    if keys[pygame.K_d] and sousmarinx < 5:
+        sousmarinx = sousmarinx + 10
+    if keys[pygame.K_q] and sousmarinx > -5:
+        sousmarinx = sousmarinx - 10
+    
+    # flip() the display to put your work on screen
+    pygame.display.flip()
+
+    # limits FPS to 60
+    # dt is delta time in seconds since last frame, used for framerate-
+    # independent physics.
+    dt = clock.tick(60) / 1000
+    pygame.display.flip()
+
+pygame.quit()
+pygame.quit()
