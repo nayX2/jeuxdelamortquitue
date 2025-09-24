@@ -124,17 +124,17 @@ while running:
     
     
     
-#deplacemment crew 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_s] and screen_height > ycrew + 21:
+    #deplacemment crew 
+   keys = pygame.key.get_pressed()
+    if keys[pygame.K_s] and screen_height > ycrew + 21 and screen.get_at((xcrew ,ycrew + 26)) != (0,0,0) and screen.get_at((xcrew+ 21 ,ycrew + 26)) != (0,0,0) :
         ycrew = ycrew + 5
-    if keys[pygame.K_z] and screen_height - 400 < ycrew:
+    if keys[pygame.K_z] and screen_height - 400 < ycrew and screen.get_at((xcrew ,ycrew - 2)) != (0,0,0) and screen.get_at((xcrew + 21 ,ycrew - 2)) != (0,0,0):
         ycrew = ycrew - 2
-    if keys[pygame.K_d] and screen_width > xcrew + 21:
+    if keys[pygame.K_d] and screen_width > xcrew + 21 and screen.get_at((xcrew + 23 ,ycrew + 21)) != (0,0,0):
         xcrew = xcrew + 5
-    if keys[pygame.K_q] and screen_width - 800 < xcrew :
+    if keys[pygame.K_q] and screen_width - 800 < xcrew and screen.get_at((xcrew - 3 ,ycrew + 21)) != (0,0,0) :
         xcrew = xcrew - 5
-    if not(keys[pygame.K_z]) and screen_height > ycrew + 21:
+    if not(keys[pygame.K_z]) and screen_height > ycrew + 21 and screen.get_at((xcrew ,ycrew + 26)) != (0,0,0) and screen.get_at((xcrew + 21 ,ycrew + 26)) != (0,0,0) :
         ycrew = ycrew + 5
     
     #deplacement sousmarin
