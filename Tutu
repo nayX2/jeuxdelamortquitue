@@ -69,6 +69,7 @@ while running:
     os.chdir(folder)
     
     sous_marin = pygame.image.load("sous_marin.png").convert_alpha()
+    sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
     
      # fill the screen with a color to wipe away anything from last frame
     profondeur = profondeur - sousmariny
@@ -118,6 +119,7 @@ while running:
     #affichage sous_marin
     screen.blit(sous_marin, (screen_width - 800, screen_height - 400))
     pygame.draw.rect(screen, (20,20,20) , (xcrew,ycrew,21,21))
+    screen.blit(sous_marini, (screen_width / 2 - 40, screen_height / 2 + 20))
     
     
     
