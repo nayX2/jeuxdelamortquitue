@@ -72,18 +72,22 @@ while running:
     
      # fill the screen with a color to wipe away anything from last frame
     profondeur = profondeur - sousmariny
-    if profondeur < newcolor:
-        color = color + 1
-        newcolor = newcolor - 1500
-        actualcolor = list_color[color]
-    elif profondeur > newcolor - 1500 and color > 0:
-        color = color - 1
-        newcolor = newcolor + 1500
-        actualcolor = list_color[color]
-    
-        
-    
-    screen.fill(actualcolor)
+    if  -2000 < profondeur :
+        screen.fill((121, 248, 248))
+    elif -3000 < profondeur < -2000:
+        screen.fill((0,204,203))
+    elif -4000 < profondeur < -3000:
+        screen.fill((0, 149, 182))
+    elif -5000 < profondeur < -4000:
+        screen.fill((0, 127, 255))
+    elif -6000 < profondeur < -5000:
+        screen.fill((21, 96, 189))
+    elif -7000 < profondeur < -6000:
+        screen.fill((0, 51, 102))
+    elif -8000 < profondeur < -7000:
+        screen.fill((3, 34, 76))
+    elif profondeur < -8000:
+        screen.fill((0, 0, 0))
 
 
        
