@@ -1,0 +1,161 @@
+import pygame
+import random
+import os
+import pathlib
+
+
+info = pygame.display.Info()
+
+
+keys = pygame.key.get_pressed()
+# Obtenir la taille de l'écran
+
+############################################################
+class Debris():
+    def __init__(self, size:int, x:int, y:int):
+        self.size = size
+        self.x = x
+        self.y = y
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+    
+    def deplacement(self, directionx ,directiony):
+        self.x = self.x - directionx
+        self.y = self.y - directiony
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+        
+    
+    def update(self):
+        return((self.x))
+    
+############################################################    
+
+
+
+# Créer une fenêtre en plein écran
+
+
+
+
+
+
+
+        
+class Jeux():
+    
+    def __init__(self, screen):
+        self.screen = screen
+        self.running = True
+        self.clock = pygame.time.Clock()
+        self.profondeur = 0 
+        self.sousmariny = 0
+        self.sousmarinx = 0
+        self.xcrew = 1200
+        self.ycrew = 800
+        self.distance = 0
+        self.listdebris = []
+        self.screen_width = info.current_w
+        self.screen_height = info.current_h
+        
+    
+    def run(self):
+        while running:
+            
+            # poll for events
+            # pygame.QUIT event means the user clicked X to close your windowajouter des debris
+            
+            #creation sous_marin
+            folder = pathlib.Path.cwd()
+            os.chdir(folder)
+            
+            sous_marin = pygame.image.load("sous_marin.png").convert_alpha()
+            sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
+            
+             # fill the screen with a color to wipe away anything from last frame
+            self.profondeur = self.profondeur - self.sousmariny
+            if  -2000 < self.profondeur :
+                screen.fill((121, 248, 248))
+            elif -3000 < profondeur < -2000:
+                screen.fill((0,204,203))
+            elif -4000 < self.profondeur < -3000:
+                screen.fill((0, 149, 182))
+            elif -5000 < self.profondeur < -4000:
+                screen.fill((0, 127, 255))
+            elif -6000 < self.profondeur < -5000:
+                screen.fill((21, 96, 189))
+            elif -7000 < self.profondeur < -6000:
+                screen.fill((0, 51, 102))
+            elif -8000 < self.profondeur < -7000:
+                screen.fill((3, 34, 76))
+            elif self.profondeur < -8000:
+                screen.fill((0, 0, 0))
+
+
+               
+            
+            #debris_spawn
+           
+            if self.distance % 10 == 0 :
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(-500,0),random.randint(-500,info.current_h + 500)))
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(0,info.current_w + 500),random.randint(-500,0)))
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(0,info.current_w + 500),random.randint(1500,2000)))
+
+               
+               
+            for debris in self.listdebris:
+                debris.deplacement(self.sousmarinx,self.sousmariny)
+                if debris.x < - 30 or debris.x > info.current_w + 530 or debris.y < - 30 or debris.y > info.current_h + 530:
+                    self.listdebris.remove(debris)
+                
+                
+            self.distance = self.distance + self.sousmarinx
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+           
+            
+            #affichage sous_marin
+            screen.blit(sous_marin, (screen_width - 800, screen_height - 400))
+            pygame.draw.rect(screen, (20,20,20) , (xcrew,ycrew,21,21))
+            screen.blit(sous_marini, (screen_width / 2 - 40, screen_height / 2 + 20))
+            
+            
+            
+            
+            #deplacemment crew 
+            if keys[pygame.K_s] and screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew+ 21 ,self.ycrew + 26)) != (0,0,0) :
+                ycrew = ycrew + 5
+            if keys[pygame.K_z] and screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 2)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
+                self.ycrew = self.ycrew - 2
+            if keys[pygame.K_d] and screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 23 ,self.ycrew + 21)) != (0,0,0):
+                self.xcrew = self.xcrew + 5
+            if keys[pygame.K_q] and screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 3 ,self.ycrew + 21)) != (0,0,0) :
+                self.xcrew = self.xcrew - 5
+            if not(keys[pygame.K_z]) and screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
+                self.ycrew = self.ycrew + 5
+            
+            #deplacement sousmarin
+            if keys[pygame.K_s] and self.sousmariny < 5:
+                self.sousmariny = self.sousmariny + 10
+            if keys[pygame.K_z] and self.sousmariny > -5:
+                self.sousmariny = self.sousmariny - 10
+            if keys[pygame.K_d] and self.sousmarinx < 5:
+                self.sousmarinx = self.sousmarinx + 10
+            if keys[pygame.K_q] and self.sousmarinx > -5:
+                self.sousmarinx = self.sousmarinx - 10
+            
+            # flip() the display to put your work on screen
+            pygame.display.flip()
+
+            # limits FPS to 60
+            # dt is delta time in seconds since last frame, used for framerate-
+            # independent physics.
+            dt = clock.tick(60) / 1000
+pygame.init()
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+game = Jeux(screen)
+game.run()
+
+pygame.quit()
+pygame.quit()
