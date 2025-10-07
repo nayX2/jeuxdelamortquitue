@@ -55,6 +55,8 @@ class Jeux():
         self.listdebris = []
         self.screen_width = info.current_w
         self.screen_height = info.current_h
+        self.angle = 0
+        self.rotated_image = ""
         
     
     def run(self):
@@ -118,8 +120,8 @@ class Jeux():
             #affichage sous_marin
             screen.blit(sous_marin, (self.screen_width - 800, self.screen_height - 400))
             pygame.draw.rect(screen, (20,20,20) , (self.xcrew,self.ycrew,21,21))
-            screen.blit(sous_marini, (self.screen_width / 2 - 40, self.screen_height / 2 + 20))
-            
+            self.rotated_image = pygame.transform.rotate(sous_marini, self.angle)
+            screen.blit(self.rotated_image, (self.screen_width / 2 - 40, self.screen_height / 2 + 20))
             
             
             keys = pygame.key.get_pressed()
@@ -138,12 +140,15 @@ class Jeux():
             #deplacement sousmarin
             if keys[pygame.K_s] and self.sousmariny < 5:
                 self.sousmariny = self.sousmariny + 10
+                self.angle = self.angle + 5
             if keys[pygame.K_z] and self.sousmariny > -5:
                 self.sousmariny = self.sousmariny - 10
+                self.angle = self.angle - 5
             if keys[pygame.K_d] and self.sousmarinx < 5:
                 self.sousmarinx = self.sousmarinx + 10
             if keys[pygame.K_q] and self.sousmarinx > -5:
                 self.sousmarinx = self.sousmarinx - 10
+            pygame.transform.rotate(self.screen , 55 )
             
             # flip() the display to put your work on screen
             pygame.display.flip()
