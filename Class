@@ -128,11 +128,11 @@ class Jeux():
             #deplacemment crew 
             if keys[pygame.K_s] and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew+ 21 ,self.ycrew + 26)) != (0,0,0) :
                 self.ycrew =  self.ycrew + 5
-            if keys[pygame.K_z] and self.screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 2)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
+            if keys[pygame.K_z] and self.screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 70)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
                 self.ycrew = self.ycrew - 2
-            if keys[pygame.K_d] and self.screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 23 ,self.ycrew + 21)) != (0,0,0):
+            if keys[pygame.K_d] and self.screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 50 ,self.ycrew + 21)) != (0,0,0):
                 self.xcrew = self.xcrew + 5
-            if keys[pygame.K_q] and self.screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 3 ,self.ycrew + 21)) != (0,0,0) :
+            if keys[pygame.K_q] and self.screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 33 ,self.ycrew + 21)) != (0,0,0) :
                 self.xcrew = self.xcrew - 5
             if not(keys[pygame.K_z]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
                 self.ycrew = self.ycrew + 5
