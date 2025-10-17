@@ -105,6 +105,9 @@ class Jeux():
                
             for debris in self.listdebris:
                 debris.deplacement(self.sousmarinx,self.sousmariny)
+                if self.screen_width / 2 + 40 > debris.x > self.screen_width / 2 - 40 and self.screen_height / 2 + 20 > debris.y > self.screen_height / 2 - 20 :
+                    print ("hit")
+                    self.listdebris.remove(debris)
                 if debris.x < - 30 or debris.x > self.screen_width + 530 or debris.y < - 30 or debris.y > self.screen_height + 530:
                     self.listdebris.remove(debris)
                 
