@@ -1,0 +1,231 @@
+import pygame
+import random
+import os
+import pathlib
+
+pygame.init()
+info = pygame.display.Info()
+
+keys = pygame.key.get_pressed()
+# Obtenir la taille de l'écran
+
+############################################################
+class Debris():
+    def __init__(self, size:int, x:int, y:int):
+        self.size = size
+        self.x = x
+        self.y = y
+        
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+    
+    def deplacement(self, directionx ,directiony):
+        self.x = self.x - directionx
+        self.y = self.y - directiony
+        pygame.draw.rect(screen, (250,250,250) , (self.x , self.y , self.size , self.size))
+        
+    
+    def update(self):
+        return((self.x))
+    
+############################################################    
+
+
+
+# Créer une fenêtre en plein écran
+
+
+
+
+
+
+        
+class Jeux():
+    
+    def __init__(self, screen):
+        self.screen = screen
+        self.running = True
+        self.clock = pygame.time.Clock()
+        self.profondeur = 0 
+        self.sousmariny = 0
+        self.sousmarinx = 0
+        self.xcrew = 1200
+        self.ycrew = 800
+        self.distance = 0
+        self.listdebris = []
+        self.screen_width = info.current_w
+        self.screen_height = info.current_h
+        self.fuel = 0
+        self.moteur = 1
+        self.temps = 0
+        self.a1 = pygame.image.load("a1.png").convert_alpha()
+        self.a2 = pygame.image.load("a2.png").convert_alpha()
+        self.a3 = pygame.image.load("a3.png").convert_alpha()
+        self.a4 = pygame.image.load("a4.png").convert_alpha()
+        self.a5 = pygame.image.load("a5.png").convert_alpha()
+        self.a6 = pygame.image.load("a6.png").convert_alpha()
+        self.a7 = pygame.image.load("a7.png").convert_alpha()
+        self.a8 = pygame.image.load("a8.png").convert_alpha()
+        self.a9 = pygame.image.load("a9.png").convert_alpha()
+        self.a10 = pygame.image.load("a10.png").convert_alpha()
+        self.dictjauge: dict[int, tuple(str, str)]= { 10 : (self.a1, (self.screen_width - 550, 40)) , 9 : (self.a2,  (self.screen_width - 550, 40)) , 8 : (self.a3, (self.screen_width - 550, 40)) , 7 : (self.a4, (self.screen_width - 550, 40)) , 6 : (self.a5, (self.screen_width - 550, 40)) , 5 : (self.a6,  (self.screen_width - 550, 40)) , 4 : (self.a7, (self.screen_width - 550, 40)) , 3 : (self.a8, (self.screen_width - 550, 40)) , 2 : (self.a9, (self.screen_width - 550, 40)) , 1 : (self.a10, (self.screen_width - 550, 40))}
+    def run(self):
+        while self.running:
+            
+            # poll for events
+            # pygame.QUIT event means the user clicked X to close your windowajouter des debris
+            
+            #creation sous_marin
+            folder = pathlib.Path.cwd()
+            os.chdir(folder)
+            
+            sous_marin = pygame.image.load("sousmarin.png").convert_alpha()
+            sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
+            umaru = pygame.image.load("umaru.png").convert_alpha()
+            lanuit = pygame.image.load("lanuit.png").convert_alpha()
+            
+            j1 = pygame.image.load("j1.png").convert_alpha()
+            j2 = pygame.image.load("j2.png").convert_alpha()
+            j3 = pygame.image.load("j3.png").convert_alpha()
+            j4 = pygame.image.load("j4.png").convert_alpha()
+            j5 = pygame.image.load("j5.png").convert_alpha()
+            j6 = pygame.image.load("j6.png").convert_alpha()
+            j7 = pygame.image.load("j7.png").convert_alpha()
+            j8 = pygame.image.load("j8.png").convert_alpha()
+            j9 = pygame.image.load("j9.png").convert_alpha()
+            j10 = pygame.image.load("j10.png").convert_alpha()
+            # fill the screen with a color to wipe away anything from last frame
+            self.profondeur = self.profondeur - self.sousmariny
+            if  -2000 < self.profondeur :
+                screen.fill((121, 248, 248))
+            elif -3000 <  self.profondeur < -2000:
+                screen.fill((0,204,203))
+            elif -4000 < self.profondeur < -3000:
+                screen.fill((0, 149, 182))
+            elif -5000 < self.profondeur < -4000:
+                screen.fill((0, 127, 255))
+            elif -6000 < self.profondeur < -5000:
+                screen.fill((21, 96, 189))
+            elif -7000 < self.profondeur < -6000:
+                screen.fill((0, 51, 102))
+            elif -8000 < self.profondeur < -7000:
+                screen.fill((3, 34, 76))
+            elif self.profondeur < -8000:
+                screen.fill((0, 0, 0))
+            
+            
+
+                
+                screen.blit(self.dictjauge[1])
+                
+                screen.blit(10, (self.screen_width - 550, 40)),            
+                screen.blit(j1, (self.screen_width - 550, 60)),
+                screen.blit(j2, (self.screen_width - 550, 60)),
+                screen.blit(j3, (self.screen_width - 550, 60)),
+                screen.blit(j3, (self.screen_width - 550, 60)),
+                screen.blit(j4, (self.screen_width - 550, 60)),
+                screen.blit(j5, (self.screen_width - 550, 60)),
+                screen.blit(j6, (self.screen_width - 550, 60)),
+                screen.blit(j7, (self.screen_width - 550, 60)),
+                screen.blit(j8, (self.screen_width - 550, 60)),
+                screen.blit(j9, (self.screen_width - 550, 60)),
+                screen.blit(j10, (self.screen_width - 550, 60))
+               
+            
+            #debris_spawn
+           
+            if self.distance % 10 == 0 :
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(-500,0),random.randint(-500,self.screen_height + 500)))
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(0,self.screen_width + 500),random.randint(-500,0)))
+                self.listdebris.append(Debris(random.randint(25,50),random.randint(0,self.screen_width + 500),random.randint(1500,2000)))
+
+               
+               
+            for debris in self.listdebris:
+                debris.deplacement(self.sousmarinx,self.sousmariny)
+                if self.screen_width / 2 + 40 > debris.x > self.screen_width / 2 - 40 and self.screen_height / 2 + 20 > debris.y > self.screen_height / 2 - 20 :
+                    print ("hit")
+                    self.listdebris.remove(debris)
+                if debris.x < - 30 or debris.x > self.screen_width + 530 or debris.y < - 30 or debris.y > self.screen_height + 530:
+                    self.listdebris.remove(debris)
+                
+                
+            self.distance = self.distance + self.sousmarinx
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+
+            if self.profondeur > 0:
+                self.sousmariny = 0
+            
+            #affichage sous_marin
+            screen.blit(sous_marin, (self.screen_width - 800, self.screen_height - 400))
+            pygame.draw.rect(self.screen, (20,20,20) , (self.xcrew,self.ycrew,21,21))
+            screen.blit(sous_marini, (self.screen_width / 2 - 40, self.screen_height / 2 + 20))
+            screen.blit(umaru, (self.xcrew - 35, self.ycrew - 75))
+            pygame.draw.rect(self.screen, (self.fuel,20,20), (self.screen_width - 630, self.screen_height - 180, 20, 20))
+            pygame.draw.rect(self.screen, (20,20, self.moteur), (self.screen_width - 170, self.screen_height - 70, 20, 20))
+            pygame.draw.rect(self.screen, (0,20,20), (0, 0, self.screen_width, self.screen_height / 2 + self.profondeur))
+            screen.blit(self.dictjauge[self.moteur][0], self.dictjauge[self.moteur][1])
+            
+            
+                
+            keys = pygame.key.get_pressed()
+            #deplacemment crew 
+            if keys[pygame.K_s] and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew+ 21 ,self.ycrew + 26)) != (0,0,0) :
+                self.ycrew =  self.ycrew + 5
+            if keys[pygame.K_z] and self.screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 2)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
+                self.ycrew = self.ycrew - 2
+            if keys[pygame.K_d] and self.screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 23 ,self.ycrew + 21)) != (0,0,0):
+                self.xcrew = self.xcrew + 5
+            if keys[pygame.K_q] and self.screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 3 ,self.ycrew + 21)) != (0,0,0) :
+                self.xcrew = self.xcrew - 5
+            if not(keys[pygame.K_z]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
+                self.ycrew = self.ycrew + 5
+            
+            #deplacement sousmarin
+            if keys[pygame.K_s] and self.sousmariny < 5:
+                self.sousmariny = self.sousmariny + 10
+            if keys[pygame.K_z] and self.sousmariny > -5 and self.profondeur < 0:
+                self.sousmariny = self.sousmariny - 10
+            if keys[pygame.K_d] and self.sousmarinx < 5:
+                self.sousmarinx = self.sousmarinx + 10
+            if keys[pygame.K_q] and self.sousmarinx > -5:
+                self.sousmarinx = self.sousmarinx - 10
+                
+            
+            if keys[pygame.K_r]:
+
+                if self.screen_width - 720 <= self.xcrew <= self.screen_width - 610 and self.screen_height - 180 <= self.ycrew <= self.screen_height - 50 and self.fuel < 250:
+                    self.fuel = self.fuel + 1
+                    
+                if self.screen_width - 300 <= self.xcrew <= self.screen_width - 160 and self.screen_height - 140 <= self.ycrew <= self.screen_height - 60 and self.fuel > 0 and self.moteur < 250 and self.fuel > 10:
+                    if self.moteur  < 10: 
+                        self.moteur = self.moteur + 1
+                    self.fuel = self.fuel - 10
+                    screen.blit(self.dictjauge[self.moteur][0], self.dictjauge[self.moteur][1])
+                
+            print(self.moteur)
+            if self.temps % 60 == 0 and self.moteur > 1:
+                
+                self.moteur = self.moteur - 1
+            self.temps = self.temps + 1
+            #print(self.temps)
+            # flip() the display to put your work on screen
+            pygame.display.flip()
+
+            # limits FPS to 60
+            # dt is delta time in seconds since last frame, used for framerate-
+            # independent physics.
+            dt = self.clock.tick(60) / 1000
+pygame.init()
+screen = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN)
+game = Jeux(screen)
+game.run()
+
+pygame.quit()
+pygame.quit()
+              
+
+
+
