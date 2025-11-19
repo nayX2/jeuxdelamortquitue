@@ -56,6 +56,8 @@ class Jeux():
         self.screen_height = info.current_h
         self.fuel = 0
         self.moteur = 1
+        self.pompe = 0
+        self.reparp = 1
         self.temps = 0
         self.a1 = pygame.image.load("a1.png").convert_alpha()
         self.a2 = pygame.image.load("a2.png").convert_alpha()
@@ -191,11 +193,27 @@ class Jeux():
                         self.moteur = self.moteur + 1
                     self.fuel = self.fuel - 10
                     screen.blit(self.dictjaugef[self.moteur][0], self.dictjaugef[self.moteur][1])
+            if keys[pygame.K_p]:
+
+                if self.screen_width - 770 <= self.xcrew <= self.screen_width - 660 and self.screen_height - 300 <= self.ycrew <= self.screen_height - 230:
+                    self.pompe = self.pompe + 1
+                    
+                if self.screen_width -  280 <= self.xcrew <= self.screen_width - 130 and self.screen_height - 320 <= self.ycrew <= self.screen_height - 230 and self.fuel > 0 and self.moteur < 250 and self.fuel > 10:
+                    if self.reparp  < 10: 
+                        self.reparp = self.reparp + 1
+                    self.pompe = self.pompe - 10
+                    screen.blit(self.dictjaugea[self.reparp][0], self.dictjaugea[self.reparp][1])
                 
-            print(self.moteur)
+               
+
             if self.temps % 60 == 0 and self.moteur > 1:
-                
                 self.moteur = self.moteur - 1
+                
+            self.temps = self.temps + 1
+            
+            if self.temps % 60 == 0 and self.reparp > 1:
+                self.reparp = self.reparp - 1
+                
             self.temps = self.temps + 1
             #print(self.temps)
             # flip() the display to put your work on screen
