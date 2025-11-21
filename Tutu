@@ -56,7 +56,7 @@ class Jeux():
         self.screen_height = info.current_h
         self.fuel = 0
         self.moteur = 1
-        self.pompe = 0
+        self.pompe = 1
         self.reparp = 1
         self.temps = 0
         self.a1 = pygame.image.load("a1.png").convert_alpha()
@@ -79,8 +79,9 @@ class Jeux():
         self.j8 = pygame.image.load("j8.png").convert_alpha()
         self.j9 = pygame.image.load("j9.png").convert_alpha()
         self.j10 = pygame.image.load("j10.png").convert_alpha()
-        self.dictjaugea: dict[int, tuple(str, str)] = { 10 : (self.j1, (self.screen_width - 550, 60)) , 9 : (self.j2,  (self.screen_width - 550, 60)) , 8 : (self.j3, (self.screen_width - 550, 60)) , 7 : (self.j4, (self.screen_width - 550, 60)) , 6 : (self.j5, (self.screen_width - 550, 60)) , 5 : (self.j6,  (self.screen_width - 550, 60)) , 4 : (self.j7, (self.screen_width - 550, 60)) , 3 : (self.j8, (self.screen_width - 550, 60)) , 2 : (self.j9, (self.screen_width - 550, 60)) , 1 : (self.j10, (self.screen_width - 550, 60))}
+        self.dictjaugea: dict[int, tuple(str, str)] = { 10 : (self.j10, (self.screen_width - 550, 60)) , 9 : (self.j9,  (self.screen_width - 550, 60)) , 8 : (self.j8, (self.screen_width - 550, 60)) , 7 : (self.j7, (self.screen_width - 550, 60)) , 6 : (self.j6, (self.screen_width - 550, 60)) , 5 : (self.j5,  (self.screen_width - 550, 60)) , 4 : (self.j4, (self.screen_width - 550, 60)) , 3 : (self.j3, (self.screen_width - 550, 60)) , 2 : (self.j2, (self.screen_width - 550, 60)) , 1 : (self.j1, (self.screen_width - 550, 60))}
         self.dictjaugef: dict[int, tuple(str, str)] = { 10 : (self.a1, (self.screen_width - 550, 40)) , 9 : (self.a2,  (self.screen_width - 550, 40)) , 8 : (self.a3, (self.screen_width - 550, 40)) , 7 : (self.a4, (self.screen_width - 550, 40)) , 6 : (self.a5, (self.screen_width - 550, 40)) , 5 : (self.a6,  (self.screen_width - 550, 40)) , 4 : (self.a7, (self.screen_width - 550, 40)) , 3 : (self.a8, (self.screen_width - 550, 40)) , 2 : (self.a9, (self.screen_width - 550, 40)) , 1 : (self.a10, (self.screen_width - 550, 40))}
+        self.fuite = 0
     def run(self):
         while self.running:
             
@@ -136,6 +137,7 @@ class Jeux():
                 debris.deplacement(self.sousmarinx,self.sousmariny)
                 if self.screen_width / 2 + 40 > debris.x > self.screen_width / 2 - 40 and self.screen_height / 2 + 20 > debris.y > self.screen_height / 2 - 20 :
                     print ("hit")
+                    self.fuite = self.fuite + 1
                     self.listdebris.remove(debris)
                 if debris.x < - 30 or debris.x > self.screen_width + 530 or debris.y < - 30 or debris.y > self.screen_height + 530:
                     self.listdebris.remove(debris)
@@ -157,6 +159,7 @@ class Jeux():
             pygame.draw.rect(self.screen, (self.fuel,20,20), (self.screen_width - 630, self.screen_height - 180, 20, 20))
             pygame.draw.rect(self.screen, (20,20, self.moteur), (self.screen_width - 170, self.screen_height - 70, 20, 20))
             screen.blit(self.dictjaugef[self.moteur][0], self.dictjaugef[self.moteur][1])
+            screen.blit(self.dictjaugea[self.pompe][0], self.dictjaugea[self.pompe][1])
             
                 
             keys = pygame.key.get_pressed()
@@ -196,25 +199,27 @@ class Jeux():
             if keys[pygame.K_p]:
 
                 if self.screen_width - 770 <= self.xcrew <= self.screen_width - 660 and self.screen_height - 300 <= self.ycrew <= self.screen_height - 230:
-                    self.pompe = self.pompe + 1
-                    
-                if self.screen_width -  280 <= self.xcrew <= self.screen_width - 130 and self.screen_height - 320 <= self.ycrew <= self.screen_height - 230 and self.fuel > 0 and self.moteur < 250 and self.fuel > 10:
+                    if self.pompe  < 10: 
+                        self.pompe = self.pompe - 1
+                    screen.blit(self.dictjaugea[self.pompe][0], self.dictjaugea[self.pompe][1])
+                '''if self.screen_width -  280 <= self.xcrew <= self.screen_width - 130 and self.screen_height - 320 <= self.ycrew <= self.screen_height - 230 and self.fuel > 0 and self.moteur < 250 and self.fuel > 10:
                     if self.reparp  < 10: 
                         self.reparp = self.reparp + 1
-                    self.pompe = self.pompe - 10
-                    screen.blit(self.dictjaugea[self.reparp][0], self.dictjaugea[self.reparp][1])
+                    self.pompe = self.pompe - 10'''
+                    
                 
                
 
             if self.temps % 60 == 0 and self.moteur > 1:
                 self.moteur = self.moteur - 1
-                
+            if self.temps % 60 == 0 and self.pompe < 10:
+                self.pompe = self.pompe + self.fuite
+            
             self.temps = self.temps + 1
             
-            if self.temps % 60 == 0 and self.reparp > 1:
-                self.reparp = self.reparp - 1
+            
                 
-            self.temps = self.temps + 1
+            
             #print(self.temps)
             # flip() the display to put your work on screen
             pygame.display.flip()
