@@ -82,6 +82,7 @@ class Jeux():
         self.dictjaugea: dict[int, tuple(str, str)] = { 10 : (self.j10, (self.screen_width - 550, 60)) , 9 : (self.j9,  (self.screen_width - 550, 60)) , 8 : (self.j8, (self.screen_width - 550, 60)) , 7 : (self.j7, (self.screen_width - 550, 60)) , 6 : (self.j6, (self.screen_width - 550, 60)) , 5 : (self.j5,  (self.screen_width - 550, 60)) , 4 : (self.j4, (self.screen_width - 550, 60)) , 3 : (self.j3, (self.screen_width - 550, 60)) , 2 : (self.j2, (self.screen_width - 550, 60)) , 1 : (self.j1, (self.screen_width - 550, 60))}
         self.dictjaugef: dict[int, tuple(str, str)] = { 10 : (self.a1, (self.screen_width - 550, 40)) , 9 : (self.a2,  (self.screen_width - 550, 40)) , 8 : (self.a3, (self.screen_width - 550, 40)) , 7 : (self.a4, (self.screen_width - 550, 40)) , 6 : (self.a5, (self.screen_width - 550, 40)) , 5 : (self.a6,  (self.screen_width - 550, 40)) , 4 : (self.a7, (self.screen_width - 550, 40)) , 3 : (self.a8, (self.screen_width - 550, 40)) , 2 : (self.a9, (self.screen_width - 550, 40)) , 1 : (self.a10, (self.screen_width - 550, 40))}
         self.fuite = 0
+        self.gravity = 0
     def run(self):
         while self.running:
             
@@ -164,15 +165,15 @@ class Jeux():
                 
             keys = pygame.key.get_pressed()
             #deplacemment crew 
-            if keys[pygame.K_s] and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew+ 21 ,self.ycrew + 26)) != (0,0,0) :
+            if keys[pygame.K_DOWN] and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew+ 21 ,self.ycrew + 26)) != (0,0,0) :
                 self.ycrew =  self.ycrew + 5
-            if keys[pygame.K_z] and self.screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 2)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
+            if keys[pygame.K_UP] and self.screen_height - 400 < self.ycrew and screen.get_at((self.xcrew ,self.ycrew - 2)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew - 2)) != (0,0,0):
                 self.ycrew = self.ycrew - 2
-            if keys[pygame.K_d] and self.screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 23 ,self.ycrew + 21)) != (0,0,0):
+            if keys[pygame.K_RIGHT] and self.screen_width > self.xcrew + 21 and screen.get_at((self.xcrew + 23 ,self.ycrew + 21)) != (0,0,0):
                 self.xcrew = self.xcrew + 5
-            if keys[pygame.K_q] and self.screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 3 ,self.ycrew + 21)) != (0,0,0) :
+            if keys[pygame.K_LEFT] and self.screen_width - 800 < self.xcrew and screen.get_at((self.xcrew - 3 ,self.ycrew + 21)) != (0,0,0) :
                 self.xcrew = self.xcrew - 5
-            if not(keys[pygame.K_z]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
+            if not(keys[pygame.K_UP]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
                 self.ycrew = self.ycrew + 5
             
             #deplacement sousmarin
@@ -199,21 +200,22 @@ class Jeux():
             if keys[pygame.K_p]:
 
                 if self.screen_width - 770 <= self.xcrew <= self.screen_width - 660 and self.screen_height - 300 <= self.ycrew <= self.screen_height - 230:
-                    if self.pompe  < 10: 
+                    if 1 < self.pompe  <= 10: 
                         self.pompe = self.pompe - 1
                     screen.blit(self.dictjaugea[self.pompe][0], self.dictjaugea[self.pompe][1])
-                '''if self.screen_width -  280 <= self.xcrew <= self.screen_width - 130 and self.screen_height - 320 <= self.ycrew <= self.screen_height - 230 and self.fuel > 0 and self.moteur < 250 and self.fuel > 10:
-                    if self.reparp  < 10: 
-                        self.reparp = self.reparp + 1
-                    self.pompe = self.pompe - 10'''
+                if self.screen_width -  280 <= self.xcrew <= self.screen_width - 130 and self.screen_height - 320 <= self.ycrew <= self.screen_height - 230 and 0 < self.fuite <= 10:
+                        self.fuite = self.fuite - 1
                     
                 
                
 
             if self.temps % 60 == 0 and self.moteur > 1:
                 self.moteur = self.moteur - 1
-            if self.temps % 60 == 0 and self.pompe < 10:
-                self.pompe = self.pompe + self.fuite
+            if self.temps % 100 == 0 and 0 < self.pompe < 10:
+                if 10 - self.pompe < self.fuite:
+                    self.pompe = self.pompe + 1
+                else:
+                    self.pompe = self.pompe + self.fuite
             
             self.temps = self.temps + 1
             
