@@ -55,7 +55,7 @@ class Jeux():
         self.screen_width = info.current_w
         self.screen_height = info.current_h
         self.fuel = 0
-        self.moteur = 1
+        self.moteur = 10
         self.pompe = 1
         self.reparp = 1
         self.temps = 0
@@ -120,8 +120,8 @@ class Jeux():
             
 
                 
-                screen.blit(self.dictjaugef[1])
-                screen.blit(self.dictjaugea[1])
+                #screen.blit(self.dictjaugef[1])
+                #screen.blit(self.dictjaugea[1])
                     
                
             
@@ -177,17 +177,20 @@ class Jeux():
                 self.ycrew = self.ycrew + 5
             
             #deplacement sousmarin
-            if keys[pygame.K_s] and self.sousmariny < 5:
+            if keys[pygame.K_s] and self.sousmariny < 5 and self.moteur > 2:
                 self.sousmariny = self.sousmariny + 10
-            if keys[pygame.K_z] and self.sousmariny > -5:
+            if keys[pygame.K_z] and self.sousmariny > -5 and self.moteur > 2:
                 self.sousmariny = self.sousmariny - 10
-            if keys[pygame.K_d] and self.sousmarinx < 5:
+            if keys[pygame.K_d] and self.sousmarinx < 5 and self.moteur > 2:
                 self.sousmarinx = self.sousmarinx + 10
-            if keys[pygame.K_q] and self.sousmarinx > -5:
-                self.sousmarinx = self.sousmarinx - 10
+            if keys[pygame.K_q] and self.sousmarinx > -5 and self.moteur > 2:
+                    self.sousmarinx = self.sousmarinx - 10
+            if self.moteur < 2:
+                self.sousmarinx = 0
+                self.sousmariny = self.sousmariny + 0.005
                 
             
-            if keys[pygame.K_r]:
+            if keys[pygame.K_m]:
 
                 if self.screen_width - 720 <= self.xcrew <= self.screen_width - 610 and self.screen_height - 180 <= self.ycrew <= self.screen_height - 50 and self.fuel < 250:
                     self.fuel = self.fuel + 1
