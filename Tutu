@@ -83,6 +83,21 @@ class Jeux():
         self.dictjaugef: dict[int, tuple(str, str)] = { 10 : (self.a1, (self.screen_width - 550, 40)) , 9 : (self.a2,  (self.screen_width - 550, 40)) , 8 : (self.a3, (self.screen_width - 550, 40)) , 7 : (self.a4, (self.screen_width - 550, 40)) , 6 : (self.a5, (self.screen_width - 550, 40)) , 5 : (self.a6,  (self.screen_width - 550, 40)) , 4 : (self.a7, (self.screen_width - 550, 40)) , 3 : (self.a8, (self.screen_width - 550, 40)) , 2 : (self.a9, (self.screen_width - 550, 40)) , 1 : (self.a10, (self.screen_width - 550, 40))}
         self.fuite = 0
         self.gravity = 0
+
+     def umarumove(self,x,y):
+        return screen.get_at((x,y)) != (0,0,0)
+    
+    
+    def umarumove3( self,x,y ,direction): # en bas a gauche # 35 75
+        if direction == "up":
+            return umarumove(x,y+80) and umarumove(x-15,y+80) and umarumove(x-35,y+80) 
+        elif direction == "down":
+            return umarumove(x,y-5) and umarumove(x-15,y-5) and umarumove(x-35,y-5) 
+        elif direction == "left"
+            return umarumove(x+40,y+75) and umarumove(x+40,y+30) and umarumove(x+40,y) 
+        elif direction == "right":
+            return umarumove(x-5,y) and umarumove(x-5,y+30) and umarumove(x-5,y+75) 
+
     def run(self):
         while self.running:
             
