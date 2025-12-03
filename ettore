@@ -95,9 +95,9 @@ class Jeux():
         if direction == "up":
             return Jeux.umarumove(x,y+80) and Jeux.umarumove(x-15,y+80) and Jeux.umarumove(x-35,y+80) 
         elif direction == "down":
-            return Jeux.umarumove(x,y+15) and Jeux.umarumove(x+15,y+15) and Jeux.umarumove(x+35,y+15) 
+            return Jeux.umarumove(x,y+5) and Jeux.umarumove(x+15,y+5) and Jeux.umarumove(x+35,y+5) 
         elif direction == "left" :
-            return Jeux.umarumove(x+40,y+75) and Jeux.umarumove(x+40,y+30) and Jeux.umarumove(x+40,y) 
+            return Jeux.umarumove(x-5,y) and Jeux.umarumove(x+5,y+35) and Jeux.umarumove(x-5,y+75) 
         elif direction == "right":
             return Jeux.umarumove(x+80,y) and Jeux.umarumove(x+80,y+30) and Jeux.umarumove(x+80,y+75)
     def run(self):
@@ -185,7 +185,7 @@ class Jeux():
                 
             keys = pygame.key.get_pressed()
             #deplacemment crew 
-            if keys[pygame.K_DOWN] and self.screen_height > self.ycrew + 21 and self.umarumove3(self.xcrew, self.ycrew - 75 , "down") :
+            if keys[pygame.K_DOWN] and self.screen_height > self.ycrew + 21 and self.umarumove3(self.xcrew, self.ycrew - 75 , "down") and self.ycrew < self.screen_height - 60:
                 self.ycrew =  self.ycrew + 5
             if keys[pygame.K_UP] and self.screen_height - 400 < self.ycrew and self.umarumove3(self.xcrew, self.ycrew - 75, "up") :
                 self.ycrew = self.ycrew - 2
@@ -193,7 +193,7 @@ class Jeux():
                 self.xcrew = self.xcrew + 5
             if keys[pygame.K_LEFT] and self.screen_width - 800 < self.xcrew and self.umarumove3(self.xcrew, self.ycrew - 75, "left") :
                 self.xcrew = self.xcrew - 5
-            if not(keys[pygame.K_UP]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) :
+            if not(keys[pygame.K_UP]) and self.screen_height > self.ycrew + 21 and screen.get_at((self.xcrew ,self.ycrew + 26)) != (0,0,0) and screen.get_at((self.xcrew + 21 ,self.ycrew + 26)) != (0,0,0) and self.ycrew < self.screen_height - 60:
                 self.ycrew = self.ycrew + 5
             
             #deplacement sousmarin
