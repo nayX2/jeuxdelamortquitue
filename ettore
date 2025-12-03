@@ -93,13 +93,13 @@ class Jeux():
     @staticmethod
     def umarumove3(x,y ,direction): # en bas a gauche # 35 75
         if direction == "up":
-            return Jeux.umarumove(x,y+80) and Jeux.umarumove(x-15,y+80) and Jeux.umarumove(x-35,y+80) 
+            return Jeux.umarumove(x,y-40) and Jeux.umarumove(x+15,y-40) and Jeux.umarumove(x+35,y-40) 
         elif direction == "down":
             return Jeux.umarumove(x,y+5) and Jeux.umarumove(x+15,y+5) and Jeux.umarumove(x+35,y+5) 
         elif direction == "left" :
-            return Jeux.umarumove(x-5,y) and Jeux.umarumove(x+5,y+35) and Jeux.umarumove(x-5,y+75) 
+            return Jeux.umarumove(x-5,y) and Jeux.umarumove(x-5,y+35) and Jeux.umarumove(x-5,y+75) 
         elif direction == "right":
-            return Jeux.umarumove(x+80,y) and Jeux.umarumove(x+80,y+30) and Jeux.umarumove(x+80,y+75)
+            return Jeux.umarumove(x+85,y) and Jeux.umarumove(x+85,y+30) and Jeux.umarumove(x+85,y+75)
     def run(self):
         while self.running:
             
@@ -187,7 +187,7 @@ class Jeux():
             #deplacemment crew 
             if keys[pygame.K_DOWN] and self.screen_height > self.ycrew + 21 and self.umarumove3(self.xcrew, self.ycrew - 75 , "down") and self.ycrew < self.screen_height - 60:
                 self.ycrew =  self.ycrew + 5
-            if keys[pygame.K_UP] and self.screen_height - 400 < self.ycrew and self.umarumove3(self.xcrew, self.ycrew - 75, "up") :
+            if keys[pygame.K_UP] and self.screen_height - 400 < self.ycrew and self.umarumove3(self.xcrew, self.ycrew -75, "up") :
                 self.ycrew = self.ycrew - 2
             if keys[pygame.K_RIGHT] and self.screen_width > self.xcrew + 21 and self.umarumove3(self.xcrew, self.ycrew - 75, "right") :
                 self.xcrew = self.xcrew + 5
@@ -199,10 +199,10 @@ class Jeux():
             #deplacement sousmarin
             if keys[pygame.K_s] and self.sousmariny < 5 and self.moteur > 2:
                 self.sousmariny = self.sousmariny + 10
-                self.angle = self.angle + 5
+                self.angle = self.angle = 0
             if keys[pygame.K_z] and self.sousmariny > -5 and self.moteur > 2 and self.profondeur < 0:
                 self.sousmariny = self.sousmariny - 10
-                self.angle = self.angle - 5
+                self.angle = self.angle = 0
             if keys[pygame.K_d] and self.sousmarinx < 5 and self.moteur > 2:
                 self.sousmarinx = self.sousmarinx + 10
             if keys[pygame.K_q] and self.sousmarinx > -5 and self.moteur > 2:
@@ -214,7 +214,7 @@ class Jeux():
                 self.sousmariny = self.sousmariny + 0.005
                 
             
-            if keys[pygame.K_m]:
+            if keys[pygame.K_RETURN]:
 
                 if self.screen_width - 720 <= self.xcrew <= self.screen_width - 610 and self.screen_height - 180 <= self.ycrew <= self.screen_height - 50 and self.fuel < 250:
                     self.fuel = self.fuel + 1
@@ -224,7 +224,6 @@ class Jeux():
                         self.moteur = self.moteur + 1
                     self.fuel = self.fuel - 10
                     screen.blit(self.dictjaugef[self.moteur][0], self.dictjaugef[self.moteur][1])
-            if keys[pygame.K_p]:
 
                 if self.screen_width - 770 <= self.xcrew <= self.screen_width - 660 and self.screen_height - 300 <= self.ycrew <= self.screen_height - 230:
                     if 1 < self.pompe  <= 10: 
@@ -236,9 +235,9 @@ class Jeux():
                 
                
 
-            if self.temps % 60 == 0 and self.moteur > 1:
+            if self.temps % 100 == 0 and self.moteur > 1:
                 self.moteur = self.moteur - 1
-            if self.temps % 100 == 0 and 0 < self.pompe < 10:
+            if self.temps % 200 == 0 and 0 < self.pompe < 10:
                 if 10 - self.pompe < self.fuite:
                     self.pompe = self.pompe + 1
                 else:
