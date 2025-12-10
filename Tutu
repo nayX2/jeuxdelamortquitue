@@ -88,6 +88,7 @@ class Jeux():
         self.parcour = 0
         self.score = 0
         self.scr = str(self.score//100000000)
+        self.high_scr = True
       
     @staticmethod
     def umarumove(x,y):
@@ -117,18 +118,21 @@ class Jeux():
             sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
             umaru = pygame.image.load("umaru.png").convert_alpha()
             
-            self.parcour = self.parcour + abs(self.sousmarinx)
-            self.score = self.score + ((abs(self.profondeur) * self.parcour))
-            print(self.score//100000000)
+            if self.high_scr:
+                self.parcour = self.parcour + abs(self.sousmarinx)
+                self.score = self.score + ((abs(self.profondeur) * self.parcour))
             
             RED = (255, 5, 5)
             self.scr = str(self.score//100000000)
             text1 = 'SCORE: ' + self.scr
             text2 = 'GAME OVER'
+            text3 = 'HIGHSCORE: ' + self.scr
             font1 = pygame.font.SysFont(None, 46)
             font2 = pygame.font.SysFont(None, 400)
+            font3 = pygame.font.SysFont(None, 100)
             img1 = font1.render(text1, True, RED)
             img2 = font2.render(text2, True, RED)
+            img3 = font3.render(text3, True, RED)
             
 
             # fill the screen with a color to wipe away anything from last frame
@@ -187,13 +191,17 @@ class Jeux():
                 self.sousmariny = 0
             
             if self.pompe >=10:
+                self.high_scr = False
                 screen.blit(img2, (100, 400))
+                screen.blit(img3, (200, 700))
                 if self.temps % 400 == 0 or keys[pygame.K_ESCAPE]:
                     pygame.quit()
             #score
             
             #affichage sous_marin
-            screen.blit(img1, (20, 20))
+            if self.pompe < 10:   
+                screen.blit(img1, (20, 20))
+                
             screen.blit(sous_marin, (self.screen_width - 800, self.screen_height - 400))
             screen.blit(umaru, (self.xcrew, self.ycrew - 75))
             pygame.draw.rect(self.screen, (self.fuel,20,20), (self.screen_width - 630, self.screen_height - 180, 20, 20))
@@ -283,6 +291,10 @@ pygame.init()
 screen = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN)
 game = Jeux(screen)
 game.run()
+
+pygame.quit()
+pygame.quit()
+
 
 pygame.quit()
 pygame.quit()
