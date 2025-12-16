@@ -95,9 +95,9 @@ class Jeux():
             sous_marin = pygame.image.load("sousmarin.png").convert_alpha()
             sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
             umaru = pygame.image.load("umaru.png").convert_alpha()
-            if self.high_scr:
-                self.parcour = self.parcour + abs(self.sousmarinx)
-                self.score = self.score + ((abs(self.profondeur) * self.parcour * - self.sousmarinx))
+            self.parcour = self.parcour + abs(self.sousmarinx)
+            self.score = self.score + ((abs(self.profondeur) * self.parcour * - self.sousmarinx))
+            print(self.score//100000000)
             red = (255, 5, 5)
             self.scr = str(self.score//100000000)
             text1 = 'SCORE: ' + self.scr
