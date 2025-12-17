@@ -38,31 +38,11 @@ class Jeux():
         self.pompe = 1
         self.reparp = 1
         self.temps = 0
-        self.a1 = pygame.image.load("a1.png").convert_alpha()
-        self.a2 = pygame.image.load("a2.png").convert_alpha()
-        self.a3 = pygame.image.load("a3.png").convert_alpha()
-        self.a4 = pygame.image.load("a4.png").convert_alpha()
-        self.a5 = pygame.image.load("a5.png").convert_alpha()
-        self.a6 = pygame.image.load("a6.png").convert_alpha()
-        self.a7 = pygame.image.load("a7.png").convert_alpha()
-        self.a8 = pygame.image.load("a8.png").convert_alpha()
-        self.a9 = pygame.image.load("a9.png").convert_alpha()
-        self.a10 = pygame.image.load("a10.png").convert_alpha()
-        self.j1 = pygame.image.load("j1.png").convert_alpha()
-        self.j2 = pygame.image.load("j2.png").convert_alpha()
-        self.j3 = pygame.image.load("j3.png").convert_alpha()
-        self.j4 = pygame.image.load("j4.png").convert_alpha()
-        self.j5 = pygame.image.load("j5.png").convert_alpha()
-        self.j6 = pygame.image.load("j6.png").convert_alpha()
-        self.j7 = pygame.image.load("j7.png").convert_alpha()
-        self.j8 = pygame.image.load("j8.png").convert_alpha()
-        self.j9 = pygame.image.load("j9.png").convert_alpha()
-        self.j10 = pygame.image.load("j10.png").convert_alpha()
         x: int = self.screen_width - 550
-        self.dictjaugea: dict[int, tuple(str, str)] = {i : (pygame.image.load("j" + str(i) + ".png").convert_alpha(),\
-                                                            (x, 60)) for i in range(1, 11)}
-        self.dictjaugef: dict[int, tuple(str, str)] = {i : (pygame.image.load("a" + str(11 - i) + ".png").convert_alpha(),\
-                                                            (x, 40)) for i in range(1, 11)}
+        self.dictjaugea: dict[int, tuple(str, str)] = {
+            i : (pygame.image.load("j" + str(i) + ".png").convert_alpha(),(x, 60)) for i in range(1, 11)}
+        self.dictjaugef: dict[int, tuple(str, str)] = {
+            i : (pygame.image.load("a" + str(11 - i) + ".png").convert_alpha(),(x, 40)) for i in range(1, 11)}
         self.fuite = 0
         self.gravity = 0
         self.angle = 0
