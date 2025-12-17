@@ -1,12 +1,10 @@
-import random
+mport random
 import os
 import pathlib
 import pygame
 pygame.init()
 info = pygame.display.Info()
 keys = pygame.key.get_pressed()
-# Obtenir la taille de l'écran
-############################################################
 class Debris():
     '''Mouvement des débris'''
     def __init__(self, size:int, x:int, y:int):
@@ -18,10 +16,6 @@ class Debris():
         self.x = self.x - directionx
         self.y = self.y - directiony
         pygame.draw.rect(screen, (5,5,5) , (self.x , self.y , self.size , self.size))
-    def update(self):
-        return((self.x))
-############################################################    
-# Créer une fenêtre en plein écran
 class Jeux():
     def __init__(self, screen):
         self.screen = screen
