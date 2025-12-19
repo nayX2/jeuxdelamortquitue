@@ -21,6 +21,7 @@ class Debris():
 class Jeux():
     """Le jeux"""
     def __init__(self):
+        """set des variable"""
         self.screen = pygame.display.set_mode((info.current_w, info.current_h), pygame.FULLSCREEN)
         self.running = True
         self.clock = pygame.time.Clock()
@@ -71,6 +72,7 @@ class Jeux():
         elif direction == "right":
             return self.umarumove(x+85,y) and \
                    self.umarumove(x+85,y+30) and self.umarumove(x+85,y+75)
+        return True #pour le pylint
     def run(self):
         """le jeux"""
         while self.running:
