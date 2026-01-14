@@ -11,6 +11,8 @@ import pygame
 pygame.init()
 info = pygame.display.Info()
 keys = pygame.key.get_pressed()
+folder = "png"
+os.chdir(folder)
 class Debris():
     """gere les obstacle"""
     def __init__(self, size: int, x: int, y: int, jeux):
