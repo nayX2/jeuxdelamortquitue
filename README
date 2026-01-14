@@ -1,0 +1,12 @@
+SOUSMARINY
+
+Sousmariny est un jeu coopératirf à deux joueurs. Le but du jeu est d'aller le plus loin et le plus profond possible lors de votre aventure,
+pour cela on aura un premier joueur qui contrôle le sous-marin avec les touches "z; q; s; d", son rôle d avancer dans les profondeurs
+touten évitant les debris qui se trouve sur son chemin. L'autre joueur quant à lui doit se déplacer sur la mini map du sous-marin avec
+les flèches directionelles, dans ce sous-marin il y a quatre compartiments où le deuxième joueur peut y effectuer des tâches afin de
+permettre l avancé du sous-marin. Le deuxième joueur peut effectuer toutes ses tâches avec la commande "entrée". En bas à gauche du sous-marin
+on à l'essence, il permet de récupérer de l'essence afin de le déposer dans le compartiment en bas à droite le moteur, ce qui permet au sous marin 
+de continuer à avancer. Au deuxième étage à gauche on dispose de la réparation, elle permet de pomper toute l'eau présente dans le sous-marin,
+et tout à droite on à le compartiment de la fuite, elle permet de réparer le sous-marin dû au collision avec les débris afin de ne pas accumulé encore
+plus de fuite. Le jeu prend fin lorsque la jauge d'eau est au max, donc cela signifie que le sous-marin est noyé à cause de l'eau.
+
