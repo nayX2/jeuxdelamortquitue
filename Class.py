@@ -63,28 +63,28 @@ class Jeux():
         self.score = 0
         self.scr = str(self.score//100000000)
         self.high_scr = True
-    def umarumove(self, x, y):
-        """fonction intermediaire pour umarumove3"""
+    def tutumove(self, x, y):
+        """fonction intermediaire pour tutumove3"""
         return self.screen.get_at((x, y)) != (0, 0, 0)
-    def umarumove3(self, x, y, direction):
+    def tutumove3(self, x, y, direction):
         """detection , pour savoir si on peux aller dans une direction\
             # en bas a gauche # 35 75"""
         if direction == "up":
-            return self.umarumove(x, y - 40) and \
-                   self.umarumove(x + 15, y - 40) and \
-                    self.umarumove(x + 35, y - 40)
+            return self.tutumove(x, y - 40) and \
+                   self.tutumove(x + 15, y - 40) and \
+                    self.tutumove(x + 35, y - 40)
         if direction == "down":
-            return self.umarumove(x, y + 5) and \
-                   self.umarumove(x + 15, y + 5) and \
-                   self.umarumove(x + 35, y + 5)
+            return self.tutumove(x, y + 5) and \
+                   self.tutumove(x + 15, y + 5) and \
+                   self.tutumove(x + 35, y + 5)
         if direction == "left" :
-            return self.umarumove(x - 5, y) and \
-                   self.umarumove(x - 5, y + 35) and \
-                   self.umarumove(x - 5, y + 75)
+            return self.tutumove(x - 5, y) and \
+                   self.tutumove(x - 5, y + 35) and \
+                   self.tutumove(x - 5, y + 75)
         if direction == "right":
-            return self.umarumove(x + 85, y) and \
-                   self.umarumove(x + 85, y + 30) and \
-                   self.umarumove(x + 85, y + 75)
+            return self.tutumove(x + 85, y) and \
+                   self.tutumove(x + 85, y + 30) and \
+                   self.tutumove(x + 85, y + 75)
         return True #pour le pylint
 
     def run(self):
@@ -94,7 +94,7 @@ class Jeux():
             os.chdir(folder)
             sous_marin = pygame.image.load("sousmarin.png").convert_alpha()
             sous_marini = pygame.image.load("sous_marinii.png").convert_alpha()
-            umaru = pygame.image.load("umaru.png").convert_alpha()
+            tutu = pygame.image.load("tutu.png").convert_alpha()
             if self.high_scr:
                 self.parcour = self.parcour + abs(self.sousmarinx)
                 self.score = self.score + ((abs(self.profondeur) * self.parcour * -self.sousmarinx))
@@ -163,7 +163,7 @@ class Jeux():
                              (0, 0, self.screen_width,self.screen_height/2 + self.profondeur))
             self.screen.blit(img1, (20, 20))
             self.screen.blit(sous_marin, (self.screen_width - 800, self.screen_height - 400))
-            self.screen.blit(umaru, (self.xcrew, self.ycrew - 75))
+            self.screen.blit(tutu, (self.xcrew, self.ycrew - 75))
             pygame.draw.rect(self.screen, (self.fuel, 20, 20), 
                              (self.screen_width - 630, self.screen_height - 180, 20, 20))
             pygame.draw.rect(self.screen, (20, 20, self.moteur), \
@@ -176,17 +176,17 @@ class Jeux():
             pygame.draw.rect(self.screen, (0, 0, 0), (self.xcrew + 5, self.ycrew, 20, 20))
             keys = pygame.key.get_pressed()
             if keys[pygame.K_DOWN] and self.screen_height > self.ycrew + 21 and \
-                self.umarumove3(self.xcrew, self.ycrew - 75, "down") and \
+                self.tutumove3(self.xcrew, self.ycrew - 75, "down") and \
                 self.ycrew < self.screen_height - 60:
                 self.ycrew =  self.ycrew + 5
             if keys[pygame.K_UP] and self.screen_height - 400 < self.ycrew and \
-                self.umarumove3(self.xcrew, self.ycrew -75, "up") :
+                self.tutumove3(self.xcrew, self.ycrew -75, "up") :
                 self.ycrew = self.ycrew - 2
             if keys[pygame.K_RIGHT] and self.screen_width > self.xcrew + 21 and \
-                self.umarumove3(self.xcrew, self.ycrew - 75, "right") :
+                self.tutumove3(self.xcrew, self.ycrew - 75, "right") :
                 self.xcrew = self.xcrew + 5
             if keys[pygame.K_LEFT] and self.screen_width - 800 < self.xcrew and \
-                self.umarumove3(self.xcrew, self.ycrew - 75, "left") :
+                self.tutumove3(self.xcrew, self.ycrew - 75, "left") :
                 self.xcrew = self.xcrew - 5
             if not(keys[pygame.K_UP]) and self.screen_height > self.ycrew + 21 and \
                self.screen.get_at((self.xcrew ,self.ycrew + 26)) != (0, 0, 0) and \
